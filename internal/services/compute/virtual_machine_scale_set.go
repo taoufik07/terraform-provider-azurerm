@@ -409,6 +409,30 @@ func virtualMachineScaleSetPublicIPAddressSchema() *pluginsdk.Schema {
 					Computed:     true,
 					ValidateFunc: validation.IntBetween(4, 32),
 				},
+				"sku": {
+					Type:     pluginsdk.TypeList,
+					Optional: true,
+					Elem: &pluginsdk.Resource{
+						Schema: map[string]*pluginsdk.Schema{
+							"name": {
+								Type:     pluginsdk.TypeString,
+								Optional: true,
+								ValidateFunc: validation.StringInSlice([]string{
+									"Basic",
+									"Standard",
+								}, true),
+							},
+							"tier": {
+								Type:     pluginsdk.TypeString,
+								Optional: true,
+								ValidateFunc: validation.StringInSlice([]string{
+									"Global",
+									"Regional",
+								}, true),
+							},
+						},
+					},
+				},
 				"ip_tag": {
 					// TODO: does this want to be a Set?
 					Type:     pluginsdk.TypeList,
